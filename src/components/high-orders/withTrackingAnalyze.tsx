@@ -1,23 +1,28 @@
 import * as React from 'react';
 import { Diff } from '../../types/typeHelper';
-import { useState } from '../../providers/trackingAnalyzeProvider';
+import { useTrackingAnalyzeState } from '../../providers/trackingAnalyzeProvider';
 
 export interface TrackingAnalyzeEvent {
   pageName: string;
+  pageType: 'PAGE_VIEW' | 'CLICK'
 }
 
 interface TrackingAnalyzeProps {
   eventQueue: TrackingAnalyzeEvent[];
 }
 
-export const withTrackingAnalyze = <Props extends TrackingAnalyzeProps>(Child: any, event?: any) =>
+interface PushEvent {
+  data: TrackingAnalyzeEvent;
+  type: 'PUSH_EVENT';
+}
+
+export const withTrackingAnalyze = <Props extends TrackingAnalyzeProps>(Child: any, event?: PushEvent) =>
   (props: Diff<Props, TrackingAnalyzeProps>) => {
-    const state = useState();
+    const state = useTrackingAnalyzeState();
 
     React.useEffect(() => {
       if (event) {
-        console.log('push a new event:', event);
-        state.pushEvent(event);
+        state.pushEvent(event.data);
       }
     }, [event]);
 
