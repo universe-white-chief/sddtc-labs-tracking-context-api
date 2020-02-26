@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Diff } from '../../types/typeHelper';
-import { TrackingAnalyzeContext } from '../../providers/trackingAnalyzeProvider';
+import { useState } from '../../providers/trackingAnalyzeProvider';
 
 export interface TrackingAnalyzeEvent {
   pageName: string;
@@ -8,16 +8,18 @@ export interface TrackingAnalyzeEvent {
 
 interface TrackingAnalyzeProps {
   eventQueue: TrackingAnalyzeEvent[];
-  setEvent: (eventQueue: TrackingAnalyzeEvent[]) => void;
 }
 
-const fetchProps = <Props extends TrackingAnalyzeProps>(keys: [keyof Props]) => {
-  const context = React.useContext(TrackingAnalyzeContext);
-  return Object.assign({}, ...keys.map(k => ({ [k]: context[k] })));
-};
-
-export const withTrackingAnalyze = <Props extends TrackingAnalyzeProps>(Child: any, ...key: any) =>
+export const withTrackingAnalyze = <Props extends TrackingAnalyzeProps>(Child: any, event?: any) =>
   (props: Diff<Props, TrackingAnalyzeProps>) => {
-    const trackingProps = fetchProps(key);
-    return <Child {...trackingProps} {...props} />
+    const state = useState();
+
+    React.useEffect(() => {
+      if (event) {
+        console.log('push a new event:', event);
+        state.pushEvent(event);
+      }
+    }, [event]);
+
+    return <Child {...{ eventQueue: state.eventQueue }} {...props} />
   };

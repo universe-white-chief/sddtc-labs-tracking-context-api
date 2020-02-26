@@ -7,7 +7,7 @@ interface Props {
 
 export const TrackingAnalyzeConsumer = withTrackingAnalyze(({ eventQueue }: Props) => {
   React.useEffect(() => {
-    console.log('eventQueue:', eventQueue);
+    eventQueue.every((e) => console.log('consume event:', e));
   });
   return null;
-}, 'eventQueue');
+});

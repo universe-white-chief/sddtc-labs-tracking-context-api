@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Home } from './pages/home';
+import { SddtcHome } from './pages/home';
+import { TrackingProvider } from './providers/trackingAnalyzeProvider';
 import { TrackingAnalyzeConsumer } from './components/trackingAnalyzeConsumer';
 
 ReactDOM.render(
-  <div>
+  <TrackingProvider>
+    <SddtcHome/>
     <TrackingAnalyzeConsumer/>
-    <Home/>
-  </div>,
+  </TrackingProvider>,
   document.getElementById('root'),
 );
