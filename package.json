@@ -11,7 +11,7 @@
   "scripts": {
     "build:local": "webpack --config config/webpack/webpack.config.local.js",
     "build": "webpack --config config/webpack/webpack.config.js --display-error-details",
-    "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --quiet",
     "start": "webpack-dev-server --mode development --open --progress --config config/webpack/webpack.config.local.js"
   },
   "devDependencies": {

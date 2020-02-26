@@ -1,15 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { TrackingAnalyzeSender } from './components/trackingAnalyzeSender';
 import { Home } from './pages/home';
-import { TrackingAnalyzeContext, TrackingAnalyzeEvent } from './components/high-orders/withTrackingAnalyze';
-
-const initTrackingAnalyzeEventQueue: TrackingAnalyzeEvent[] = [];
+import { TrackingAnalyzeConsumer } from './components/trackingAnalyzeConsumer';
 
 ReactDOM.render(
-  <TrackingAnalyzeContext.Provider value={initTrackingAnalyzeEventQueue}>
-    <TrackingAnalyzeSender/>
+  <div>
+    <TrackingAnalyzeConsumer/>
     <Home/>
-  </TrackingAnalyzeContext.Provider>,
-  document.getElementById('root')
+  </div>,
+  document.getElementById('root'),
 );

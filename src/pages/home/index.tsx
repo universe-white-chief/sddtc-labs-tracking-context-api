@@ -1,12 +1,15 @@
+import * as React from 'react';
 import { TrackingAnalyzeEvent, withTrackingAnalyze } from '../../components/high-orders/withTrackingAnalyze';
 import { PageHead } from '../../components/pageHead';
-import * as React from 'react';
 
 interface Props {
+  setEvent: (eventQueue: TrackingAnalyzeEvent[]) => TrackingAnalyzeEvent[];
   eventQueue: TrackingAnalyzeEvent[];
 }
 
-export const Home = withTrackingAnalyze(({ eventQueue }: Props) => {
-  eventQueue.push({ pageName: 'home' });
-  return <PageHead title={'Home'}/>
-});
+export const Home = withTrackingAnalyze(({ setEvent, eventQueue }: Props) => {
+  setEvent({ ...eventQueue, ...{ pageName: 'home' } });
+  console.log('set event success.');
+
+  return <PageHead title={'Home'}/>;
+}, 'setEvent', 'eventQueue');
